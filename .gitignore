@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+out/
+
+# Full-size generated datasets are not committed - regenerate with
+#   python data/generate.py -n 4000 -o data
+# A small committed sample lives in data/sample/
+data/legacy_master.csv
+data/erp_master.csv
+data/ground_truth.csv
