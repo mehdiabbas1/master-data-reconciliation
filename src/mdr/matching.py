@@ -105,12 +105,16 @@ def best_matches(
     auto: float = AUTO_THRESHOLD,
     review: float = REVIEW_THRESHOLD,
     id_field: str = "grower_code",
+    include_rejects: bool = False,
 ) -> list[Scored]:
     """Score every candidate pair and keep the best right-hand record for
     each left-hand record.
 
     Deliberately many-to-one: two legacy records for the same grower should
     both resolve to the single ERP record, which is how duplicates surface.
+
+    Rejected pairs are dropped by default. Pass include_rejects=True to keep
+    them, which the score-distribution chart needs to show the full picture.
     """
     left_by_id = {r[id_field]: r for r in left_rows}
     right_by_id = {r[id_field]: r for r in right_rows}
@@ -130,6 +134,8 @@ def best_matches(
                 components=components,
             )
 
+    if include_rejects:
+        return list(best.values())
     return [s for s in best.values() if s.decision != "reject"]
 
 

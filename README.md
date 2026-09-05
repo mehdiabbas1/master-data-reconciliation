@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# master-data-reconciliation
-Explainable record linkage for ERP master data migration
-=======
 # Master Data Reconciliation
 
 A record linkage tool for ERP migrations. When a new system issues its own
@@ -376,4 +372,3 @@ python -m pytest -q
 ## Licence
 
 MIT
->>>>>>> c441a49 (Initial portfolio release)

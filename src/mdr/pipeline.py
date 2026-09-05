@@ -17,6 +17,7 @@ class Result:
     left_rows: list[dict]
     right_rows: list[dict]
     matches: list[matching.Scored]
+    all_scored: list[matching.Scored]
     conflicts: list[dict]
     duplicate_groups: list[dict]
     left_orphans: list[dict]
@@ -82,7 +83,12 @@ def reconcile(
     right = [prepare(r, canon) for r in right_raw]
 
     pairs, stats = candidate_pairs(left, right)
-    matches = matching.best_matches(left, right, pairs, auto=auto, review=review)
+    # Score once, keeping rejects too - the accepted set is a filter over the
+    # same list, and the score-distribution chart needs the rejected tail.
+    all_scored = matching.best_matches(
+        left, right, pairs, auto=auto, review=review, include_rejects=True
+    )
+    matches = [s for s in all_scored if s.decision != "reject"]
 
     conflicts = matching.field_conflicts(matches, left, right)
     dupes = matching.duplicates(matches)
@@ -92,6 +98,7 @@ def reconcile(
         left_rows=left,
         right_rows=right,
         matches=matches,
+        all_scored=all_scored,
         conflicts=conflicts,
         duplicate_groups=dupes,
         left_orphans=left_orphans,

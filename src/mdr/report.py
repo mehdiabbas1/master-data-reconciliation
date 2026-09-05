@@ -8,6 +8,7 @@ from pathlib import Path
 
 from jinja2 import Template
 
+from . import charts
 from .evaluate import Metrics
 from .pipeline import Result
 
@@ -102,6 +103,30 @@ TEMPLATE = Template("""<!doctype html>
   tr:last-child td { border-bottom: none; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+  :root { --vz-s1:#2a78d6; --vz-s2:#eb6834; --vz-good:#0ca30c; --vz-warn:#fab219;
+          --vz-neutral:#9a9a93; --vz-grid:#e1e0d9; --vz-axis:#c3c2b7; --vz-muted:#898781; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --vz-s1:#3987e5; --vz-s2:#d95926; --vz-grid:#2c2c2a; --vz-axis:#383835; } }
+  .vz { margin: 0 0 22px; background: var(--card); border: 1px solid var(--line);
+        border-radius: 8px; padding: 16px 18px 10px; }
+  .vz figcaption { margin-bottom: 10px; } .vz figcaption b { display: block; font-size: 14px; }
+  .vz figcaption span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .vz-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 6px; }
+  .vz-key { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .vz-sw { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+  .vz-b1 { background: var(--vz-s1); } .vz-b2 { background: var(--vz-s2); }
+  .vz-bg { background: var(--vz-good); } .vz-bw { background: var(--vz-warn); } .vz-bn { background: var(--vz-neutral); }
+  .vz-scroll { overflow-x: auto; } .vz-svg { display: block; width: 100%; min-width: 460px; height: auto; }
+  .vz-grid { stroke: var(--vz-grid); stroke-width: 1; } .vz-axis { stroke: var(--vz-axis); stroke-width: 1; }
+  .vz-rule { stroke: var(--vz-axis); stroke-width: 1; stroke-dasharray: 3 3; }
+  .vz-line { stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .vz-line.vz-s1 { stroke: var(--vz-s1); } .vz-line.vz-s2 { stroke: var(--vz-s2); }
+  .vz-dot.vz-s1 { fill: var(--vz-s1); } .vz-dot.vz-s2 { fill: var(--vz-s2); }
+  .vz-dot { stroke: var(--card); stroke-width: 2; } .vz-bar.vz-auto { fill: var(--vz-good); }
+  .vz-bar.vz-review { fill: var(--vz-warn); } .vz-bar.vz-reject { fill: var(--vz-neutral); }
+  .vz-tick, .vz-note { fill: var(--vz-muted); font-size: 10.5px; } .vz-lab { font-size: 11.5px; font-weight: 600; }
+  .vz-lab.vz-s1t { fill: var(--vz-s1); } .vz-lab.vz-s2t { fill: var(--vz-s2); }
+  .vz-c { text-anchor: middle; } .vz-r { text-anchor: end; }
   .pill { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: 12px;
           background: #eef2f6; color: var(--accent); }
   .best { background: #f0f7f2; }
@@ -138,6 +163,10 @@ TEMPLATE = Template("""<!doctype html>
   <p class="note">Measured on auto-accepted pairs only. Records routed to review are
      questions for a human, not claims by the tool, so they are excluded.</p>
   {% endif %}
+
+  <h2>Charts</h2>
+  {{ chart_scores }}
+  {{ chart_threshold }}
 
   {% if sweep %}
   <h2>Threshold sensitivity</h2>
@@ -227,11 +256,16 @@ def write_html(
         "legacy_village": left_by_id[m.left_id].get("village", ""),
     } for m in sorted(result.review, key=lambda x: -x.score)]
 
+    auto_t = result.thresholds.get("auto", 0.92)
+    review_t = result.thresholds.get("review", 0.70)
+
     html = TEMPLATE.render(
         s=result.summary(),
         t=result.thresholds,
         metrics=metrics,
         sweep=sweep_rows,
+        chart_threshold=charts.threshold_curve(sweep_rows or [], auto_t),
+        chart_scores=charts.score_distribution(result.all_scored, auto_t, review_t),
         review=review,
         conflicts=result.conflicts,
         orphans=result.left_orphans,

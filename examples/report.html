@@ -31,6 +31,30 @@
   tr:last-child td { border-bottom: none; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+  :root { --vz-s1:#2a78d6; --vz-s2:#eb6834; --vz-good:#0ca30c; --vz-warn:#fab219;
+          --vz-neutral:#9a9a93; --vz-grid:#e1e0d9; --vz-axis:#c3c2b7; --vz-muted:#898781; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --vz-s1:#3987e5; --vz-s2:#d95926; --vz-grid:#2c2c2a; --vz-axis:#383835; } }
+  .vz { margin: 0 0 22px; background: var(--card); border: 1px solid var(--line);
+        border-radius: 8px; padding: 16px 18px 10px; }
+  .vz figcaption { margin-bottom: 10px; } .vz figcaption b { display: block; font-size: 14px; }
+  .vz figcaption span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .vz-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 6px; }
+  .vz-key { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .vz-sw { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+  .vz-b1 { background: var(--vz-s1); } .vz-b2 { background: var(--vz-s2); }
+  .vz-bg { background: var(--vz-good); } .vz-bw { background: var(--vz-warn); } .vz-bn { background: var(--vz-neutral); }
+  .vz-scroll { overflow-x: auto; } .vz-svg { display: block; width: 100%; min-width: 460px; height: auto; }
+  .vz-grid { stroke: var(--vz-grid); stroke-width: 1; } .vz-axis { stroke: var(--vz-axis); stroke-width: 1; }
+  .vz-rule { stroke: var(--vz-axis); stroke-width: 1; stroke-dasharray: 3 3; }
+  .vz-line { stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .vz-line.vz-s1 { stroke: var(--vz-s1); } .vz-line.vz-s2 { stroke: var(--vz-s2); }
+  .vz-dot.vz-s1 { fill: var(--vz-s1); } .vz-dot.vz-s2 { fill: var(--vz-s2); }
+  .vz-dot { stroke: var(--card); stroke-width: 2; } .vz-bar.vz-auto { fill: var(--vz-good); }
+  .vz-bar.vz-review { fill: var(--vz-warn); } .vz-bar.vz-reject { fill: var(--vz-neutral); }
+  .vz-tick, .vz-note { fill: var(--vz-muted); font-size: 10.5px; } .vz-lab { font-size: 11.5px; font-weight: 600; }
+  .vz-lab.vz-s1t { fill: var(--vz-s1); } .vz-lab.vz-s2t { fill: var(--vz-s2); }
+  .vz-c { text-anchor: middle; } .vz-r { text-anchor: end; }
   .pill { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: 12px;
           background: #eef2f6; color: var(--accent); }
   .best { background: #f0f7f2; }
@@ -43,30 +67,61 @@
   <h1>Master data reconciliation</h1>
   <p class="sub">Legacy cane-office master reconciled against the new ERP grower master.
      Auto-accept at 0.92, review band from 0.70.
-     Completed in 0.34s.</p>
+     Completed in 0.02s.</p>
 
   <div class="cards">
-    <div class="card"><div class="n">4,080</div><div class="l">Legacy records</div></div>
-    <div class="card"><div class="n">3,960</div><div class="l">ERP records</div></div>
-    <div class="card ok"><div class="n">3,187</div><div class="l">Auto matched</div></div>
-    <div class="card warn"><div class="n">713</div><div class="l">Needs review</div></div>
-    <div class="card bad"><div class="n">180</div><div class="l">Unmatched legacy</div></div>
-    <div class="card"><div class="n">152</div><div class="l">Unmatched ERP</div></div>
-    <div class="card warn"><div class="n">90</div><div class="l">Duplicate groups</div></div>
-    <div class="card warn"><div class="n">533</div><div class="l">Field conflicts</div></div>
+    <div class="card"><div class="n">510</div><div class="l">Legacy records</div></div>
+    <div class="card"><div class="n">495</div><div class="l">ERP records</div></div>
+    <div class="card ok"><div class="n">384</div><div class="l">Auto matched</div></div>
+    <div class="card warn"><div class="n">102</div><div class="l">Needs review</div></div>
+    <div class="card bad"><div class="n">24</div><div class="l">Unmatched legacy</div></div>
+    <div class="card"><div class="n">19</div><div class="l">Unmatched ERP</div></div>
+    <div class="card warn"><div class="n">10</div><div class="l">Duplicate groups</div></div>
+    <div class="card warn"><div class="n">68</div><div class="l">Field conflicts</div></div>
   </div>
 
   
   <h2>Accuracy against ground truth</h2>
   <div class="cards">
     <div class="card ok"><div class="n">100.0%</div><div class="l">Precision</div></div>
-    <div class="card ok"><div class="n">80.5%</div><div class="l">Recall</div></div>
-    <div class="card"><div class="n">0.892</div><div class="l">F1</div></div>
+    <div class="card ok"><div class="n">77.6%</div><div class="l">Recall</div></div>
+    <div class="card"><div class="n">0.874</div><div class="l">F1</div></div>
     <div class="card bad"><div class="n">0</div><div class="l">False positives</div></div>
   </div>
   <p class="note">Measured on auto-accepted pairs only. Records routed to review are
      questions for a human, not claims by the tool, so they are excluded.</p>
   
+
+  <h2>Charts</h2>
+  <figure class="vz">
+  <figcaption><b>Where the candidate pair scores fall</b>
+    <span>Every scored pair, binned by score and decision band.</span></figcaption>
+  <div class="vz-legend"><span class="vz-key"><i class="vz-sw vz-bg"></i>Auto — 384</span>
+    <span class="vz-key"><i class="vz-sw vz-bw"></i>Review — 102</span>
+    <span class="vz-key"><i class="vz-sw vz-bn"></i>Reject — 4</span></div>
+  <div class="vz-scroll"><svg viewBox="0 0 680 250" class="vz-svg" role="img" aria-label="Histogram of candidate pair scores">
+    <line x1="46" y1="216" x2="604" y2="216" class="vz-axis"/>
+    <rect x="46.0" y="215.1" width="22.3" height="0.9" class="vz-bar vz-reject"/><rect x="240.1" y="215.1" width="22.3" height="0.9" class="vz-bar vz-reject"/><rect x="264.3" y="214.1" width="22.3" height="1.9" class="vz-bar vz-reject"/><rect x="288.6" y="215.1" width="22.3" height="0.9" class="vz-bar vz-review"/><rect x="337.1" y="211.3" width="22.3" height="4.7" class="vz-bar vz-review"/><rect x="361.4" y="205.6" width="22.3" height="10.4" class="vz-bar vz-review"/><rect x="385.7" y="200.8" width="22.3" height="15.2" class="vz-bar vz-review"/><rect x="409.9" y="192.3" width="22.3" height="23.7" class="vz-bar vz-review"/><rect x="434.2" y="190.4" width="22.3" height="25.6" class="vz-bar vz-review"/><rect x="458.4" y="208.4" width="22.3" height="7.6" class="vz-bar vz-review"/><rect x="482.7" y="206.5" width="22.3" height="9.5" class="vz-bar vz-review"/><rect x="507.0" y="179.9" width="22.3" height="36.1" class="vz-bar vz-auto"/><rect x="531.2" y="138.1" width="22.3" height="77.9" class="vz-bar vz-auto"/><rect x="555.5" y="154.3" width="22.3" height="61.7" class="vz-bar vz-auto"/><rect x="579.7" y="28.0" width="22.3" height="188.0" class="vz-bar vz-auto"/>
+    <line x1="288.6" y1="28" x2="288.6" y2="216" class="vz-rule"/><text x="293.6" y="39" class="vz-note">review 0.70</text><line x1="502.1" y1="28" x2="502.1" y2="216" class="vz-rule"/><text x="507.1" y="39" class="vz-note">auto 0.92</text>
+    <text x="325.0" y="248" class="vz-tick vz-c">match score</text>
+  </svg></div>
+</figure>
+  <figure class="vz">
+  <figcaption><b>Precision and recall across auto-accept thresholds</b>
+    <span>Raising the bar removes false positives and costs recall.</span></figcaption>
+  <div class="vz-legend"><span class="vz-key"><i class="vz-sw vz-b1"></i>Precision</span>
+    <span class="vz-key"><i class="vz-sw vz-b2"></i>Recall</span></div>
+  <div class="vz-scroll"><svg viewBox="0 0 680 250" class="vz-svg" role="img" aria-label="Precision and recall by threshold">
+    <line x1="46" y1="216.0" x2="604" y2="216.0" class="vz-grid"/><text x="38" y="220.0" class="vz-tick vz-r">0</text><line x1="46" y1="169.0" x2="604" y2="169.0" class="vz-grid"/><text x="38" y="173.0" class="vz-tick vz-r">0.25</text><line x1="46" y1="122.0" x2="604" y2="122.0" class="vz-grid"/><text x="38" y="126.0" class="vz-tick vz-r">0.5</text><line x1="46" y1="75.0" x2="604" y2="75.0" class="vz-grid"/><text x="38" y="79.0" class="vz-tick vz-r">0.75</text><line x1="46" y1="28.0" x2="604" y2="28.0" class="vz-grid"/><text x="38" y="32.0" class="vz-tick vz-r">1</text>
+    <line x1="46" y1="216" x2="604" y2="216" class="vz-axis"/>
+    <text x="46.0" y="236" class="vz-tick vz-c">0.70</text><text x="139.0" y="236" class="vz-tick vz-c">0.75</text><text x="232.0" y="236" class="vz-tick vz-c">0.80</text><text x="325.0" y="236" class="vz-tick vz-c">0.85</text><text x="418.0" y="236" class="vz-tick vz-c">0.90</text><text x="511.0" y="236" class="vz-tick vz-c">0.95</text><text x="604.0" y="236" class="vz-tick vz-c">1.00</text>
+    <line x1="455.2" y1="28" x2="455.2" y2="216" class="vz-rule"/><circle cx="455.2" cy="28.0" r="5" class="vz-dot vz-s1"/><circle cx="455.2" cy="70.2" r="5" class="vz-dot vz-s2"/><text x="455.2" y="26" class="vz-note vz-c">operating point 0.92</text>
+    <path d="M46.0,31.4 L83.2,31.8 L120.4,31.8 L157.6,32.9 L194.8,34.1 L232.0,37.9 L269.2,40.5 L306.4,47.4 L343.6,54.2 L380.8,63.7 L418.0,66.7 L455.2,70.2 L492.4,75.1 L529.6,102.1 L566.8,123.3 L604.0,140.8" class="vz-line vz-s2" fill="none"/>
+    <path d="M46.0,28.0 L83.2,28.0 L120.4,28.0 L157.6,28.0 L194.8,28.0 L232.0,28.0 L269.2,28.0 L306.4,28.0 L343.6,28.0 L380.8,28.0 L418.0,28.0 L455.2,28.0 L492.4,28.0 L529.6,28.0 L566.8,28.0 L604.0,28.0" class="vz-line vz-s1" fill="none"/>
+    <text x="612" y="32.0" class="vz-lab vz-s1t">Precision</text><text x="612" y="144.8" class="vz-lab vz-s2t">Recall</text>
+    <text x="325.0" y="248" class="vz-tick vz-c">auto-accept threshold</text>
+  </svg></div>
+</figure>
 
   
   <h2>Threshold sensitivity</h2>
@@ -76,129 +131,129 @@
     
     <tr class="">
       <td class="num">0.70</td>
-      <td class="num">0.996</td>
-      <td class="num">0.981</td>
-      <td class="num">0.989</td>
-      <td class="num">15</td>
+      <td class="num">1.000</td>
+      <td class="num">0.982</td>
+      <td class="num">0.991</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.72</td>
-      <td class="num">0.996</td>
+      <td class="num">1.000</td>
       <td class="num">0.980</td>
-      <td class="num">0.988</td>
-      <td class="num">15</td>
+      <td class="num">0.990</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.74</td>
-      <td class="num">0.997</td>
-      <td class="num">0.978</td>
-      <td class="num">0.987</td>
-      <td class="num">13</td>
+      <td class="num">1.000</td>
+      <td class="num">0.980</td>
+      <td class="num">0.990</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.76</td>
-      <td class="num">0.997</td>
-      <td class="num">0.971</td>
-      <td class="num">0.984</td>
-      <td class="num">10</td>
+      <td class="num">1.000</td>
+      <td class="num">0.974</td>
+      <td class="num">0.987</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.78</td>
-      <td class="num">0.998</td>
-      <td class="num">0.962</td>
-      <td class="num">0.979</td>
-      <td class="num">9</td>
+      <td class="num">1.000</td>
+      <td class="num">0.968</td>
+      <td class="num">0.984</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.80</td>
-      <td class="num">0.998</td>
-      <td class="num">0.940</td>
-      <td class="num">0.968</td>
-      <td class="num">6</td>
+      <td class="num">1.000</td>
+      <td class="num">0.947</td>
+      <td class="num">0.973</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.82</td>
-      <td class="num">0.998</td>
-      <td class="num">0.921</td>
-      <td class="num">0.958</td>
-      <td class="num">6</td>
+      <td class="num">1.000</td>
+      <td class="num">0.933</td>
+      <td class="num">0.966</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.84</td>
-      <td class="num">0.998</td>
-      <td class="num">0.887</td>
-      <td class="num">0.939</td>
-      <td class="num">6</td>
+      <td class="num">1.000</td>
+      <td class="num">0.897</td>
+      <td class="num">0.946</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.86</td>
-      <td class="num">0.999</td>
-      <td class="num">0.863</td>
-      <td class="num">0.926</td>
-      <td class="num">5</td>
+      <td class="num">1.000</td>
+      <td class="num">0.861</td>
+      <td class="num">0.925</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.88</td>
-      <td class="num">0.999</td>
-      <td class="num">0.826</td>
-      <td class="num">0.904</td>
-      <td class="num">4</td>
+      <td class="num">1.000</td>
+      <td class="num">0.810</td>
+      <td class="num">0.895</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.90</td>
-      <td class="num">0.999</td>
-      <td class="num">0.813</td>
-      <td class="num">0.896</td>
-      <td class="num">2</td>
+      <td class="num">1.000</td>
+      <td class="num">0.794</td>
+      <td class="num">0.885</td>
+      <td class="num">0</td>
     </tr>
     
     <tr class="best">
       <td class="num">0.92</td>
       <td class="num">1.000</td>
-      <td class="num">0.805</td>
-      <td class="num">0.892</td>
+      <td class="num">0.776</td>
+      <td class="num">0.874</td>
       <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.94</td>
       <td class="num">1.000</td>
-      <td class="num">0.772</td>
-      <td class="num">0.871</td>
+      <td class="num">0.749</td>
+      <td class="num">0.857</td>
       <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.96</td>
       <td class="num">1.000</td>
-      <td class="num">0.678</td>
-      <td class="num">0.808</td>
+      <td class="num">0.606</td>
+      <td class="num">0.755</td>
       <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">0.98</td>
       <td class="num">1.000</td>
-      <td class="num">0.544</td>
-      <td class="num">0.705</td>
+      <td class="num">0.493</td>
+      <td class="num">0.660</td>
       <td class="num">0</td>
     </tr>
     
     <tr class="">
       <td class="num">1.00</td>
       <td class="num">1.000</td>
-      <td class="num">0.445</td>
-      <td class="num">0.615</td>
+      <td class="num">0.400</td>
+      <td class="num">0.571</td>
       <td class="num">0</td>
     </tr>
     
@@ -211,309 +266,305 @@
   <h2>Blocking</h2>
   <div class="scroll"><table>
     <tr><th>Metric</th><th class="num">Value</th></tr>
-    <tr><td>Candidate pairs evaluated</td><td class="num">11,824</td></tr>
-    <tr><td>Exhaustive comparison would be</td><td class="num">16,156,800</td></tr>
-    <tr><td>Search space reduction</td><td class="num">99.9268%</td></tr>
+    <tr><td>Candidate pairs evaluated</td><td class="num">626</td></tr>
+    <tr><td>Exhaustive comparison would be</td><td class="num">252,450</td></tr>
+    <tr><td>Search space reduction</td><td class="num">99.7520%</td></tr>
     <tr><td>Village spellings clustered to</td><td class="num">25</td></tr>
   </table></div>
 
-  <h2>Review queue <span class="pill">713 rows</span></h2>
+  <h2>Review queue <span class="pill">102 rows</span></h2>
   <div class="scroll"><table>
     <tr><th>Legacy</th><th>ERP</th><th>Score</th><th>Legacy name</th><th>ERP name</th><th>Village</th></tr>
     
-    <tr><td>L003879</td><td>G0502879</td>
-        <td class="num">0.920</td>
-        <td>SITARAM KIRAR</td><td>SITARAM K</td><td>BHALPANEE</td></tr>
-    
-    <tr><td>L001785</td><td>G0500785</td>
-        <td class="num">0.920</td>
-        <td>NARAYAN TIWARI</td><td>NARAYAN  T</td><td>KHAMARIA</td></tr>
-    
-    <tr><td>L002438</td><td>G0501438</td>
-        <td class="num">0.919</td>
-        <td>PRAKASH Y</td><td>PRAKAS YADAW</td><td>BACHHAI</td></tr>
-    
-    <tr><td>L004288</td><td>G0503288</td>
-        <td class="num">0.919</td>
-        <td>Lakhan D</td><td>LAKHAN DUBEY</td><td>GORAKPUR</td></tr>
-    
-    <tr><td>L002188</td><td>G0501188</td>
+    <tr><td>L001489</td><td>G0500489</td>
         <td class="num">0.918</td>
-        <td>BHARGAVA SURESH</td><td>SURESH BHARGAVA</td><td>MEHAGAON</td></tr>
+        <td>Narayan Sen</td><td>NARAIAN SEN</td><td>DEONAGAR</td></tr>
     
-    <tr><td>L001334</td><td>G0500334</td>
+    <tr><td>L001439</td><td>G0500439</td>
         <td class="num">0.917</td>
-        <td>Jagdish Kourav</td><td>JAGDISH K</td><td>DEVNAGAR (GOTEGAON)</td></tr>
+        <td>PRAKAS BHARGAWA</td><td>Prakash Bhargava</td><td>MEHGAON</td></tr>
     
-    <tr><td>L003066</td><td>G0502066</td>
-        <td class="num">0.916</td>
-        <td>Mishra Mukesh</td><td>MUKESH M</td><td>KHAMARIA</td></tr>
-    
-    <tr><td>L002877</td><td>G0501877</td>
-        <td class="num">0.916</td>
-        <td>YADAV MOHAN</td><td>MOHAN Y</td><td>PIPARIYA</td></tr>
-    
-    <tr><td>L003578</td><td>G0502578</td>
-        <td class="num">0.916</td>
-        <td>BRIJMOHAN MISRA</td><td>BRIJMOHAN  MISHRA</td><td>DEVNAGAR</td></tr>
-    
-    <tr><td>L002944</td><td>G0501944</td>
+    <tr><td>L001387</td><td>G0500387</td>
         <td class="num">0.915</td>
-        <td>DEWILAL MISRA</td><td>Devilal Mishra</td><td>PIPPARIYA</td></tr>
+        <td>KANHAIIA YADAW</td><td>KANHAIYA Y</td><td>JALAPUR</td></tr>
     
-    <tr><td>L003455</td><td>G0502455</td>
-        <td class="num">0.912</td>
-        <td>GANESH SEN</td><td>GANESH S</td><td>BHALPANEE</td></tr>
+    <tr><td>L001119</td><td>G0500119</td>
+        <td class="num">0.913</td>
+        <td>GIRDHARI PATEL</td><td>GIRDHARI PATEL</td><td>DUDWARA</td></tr>
     
-    <tr><td>L002441</td><td>G0501441</td>
-        <td class="num">0.912</td>
-        <td>KANHAIYA G</td><td>KANHAIYA GOUR</td><td>GORAKPUR</td></tr>
-    
-    <tr><td>L001111</td><td>G0500111</td>
+    <tr><td>L001196</td><td>G0500196</td>
         <td class="num">0.911</td>
-        <td>LAKHAN GOUR</td><td>LAKHAN G</td><td>PIPARIA</td></tr>
+        <td>MOHAN K</td><td>MOHAN KOURAV</td><td>CHORAKHERA</td></tr>
     
-    <tr><td>L004909</td><td>G0503909</td>
-        <td class="num">0.911</td>
-        <td>CHHOTELAL A</td><td>CHHOTELAL AHIRWAR</td><td>KHAMARIYA</td></tr>
-    
-    <tr><td>L001317</td><td>G0500317</td>
-        <td class="num">0.910</td>
-        <td>PRAKASH LODHI</td><td>PRAKAS LODHI</td><td>MEHGAON</td></tr>
-    
-    <tr><td>L003378</td><td>G0502378</td>
-        <td class="num">0.909</td>
-        <td>Girdhari Dubei</td><td>Girdhari Dubey</td><td>KUKWADA</td></tr>
-    
-    <tr><td>L001123</td><td>G0500123</td>
-        <td class="num">0.909</td>
-        <td>DINESH THAKUR</td><td>Dinesh Thakur</td><td>MEHGAON</td></tr>
-    
-    <tr><td>L004015</td><td>G0503015</td>
-        <td class="num">0.908</td>
-        <td>Rajesh P</td><td>PATEL RAJESH</td><td>CHORAKHERA</td></tr>
-    
-    <tr><td>L004709</td><td>G0503709</td>
-        <td class="num">0.908</td>
-        <td>MUKESH GOUR</td><td>MUKESH G</td><td>PIPARIYA</td></tr>
-    
-    <tr><td>L002823</td><td>G0501823</td>
-        <td class="num">0.908</td>
-        <td>Tulsiram  Tiwari</td><td>TULSIRAM  T</td><td>DEVNAGAR (GOTEGAON)</td></tr>
-    
-    <tr><td>L001889</td><td>G0500889</td>
-        <td class="num">0.908</td>
-        <td>RADHESHYAM LODHI</td><td>RADHESHYAM  LODHI</td><td>JALLAPUR</td></tr>
-    
-    <tr><td>L002728</td><td>G0501728</td>
-        <td class="num">0.907</td>
-        <td>PRAKAS PATHAK</td><td>PRAKASH P</td><td>PIPARIYA</td></tr>
-    
-    <tr><td>L002532</td><td>G0501532</td>
+    <tr><td>L001369</td><td>G0500369</td>
         <td class="num">0.906</td>
-        <td>SURESH  G</td><td>SURES GOUR</td><td>GADARIYA</td></tr>
+        <td>Yadav Phoolchand</td><td>Phulchand Yadaw</td><td>DEVNAGAR (GOTEGAON)</td></tr>
     
-    <tr><td>L001091</td><td>G0500091</td>
-        <td class="num">0.906</td>
-        <td>SAMPATLAL KUSHWAHA</td><td>SAMPATLAL KUSHWAHA</td><td>BARKHEDA</td></tr>
+    <tr><td>L001409</td><td>G0500409</td>
+        <td class="num">0.904</td>
+        <td>SHIVKUMAR SAHU</td><td>SHIVKUMAR SAHU</td><td>KARHAIYA</td></tr>
     
-    <tr><td>L002209</td><td>G0502204</td>
-        <td class="num">0.906</td>
-        <td>RAMESH SAHU</td><td>Ramesh Sahu</td><td>SIGODHI</td></tr>
+    <tr><td>L001423</td><td>G0500423</td>
+        <td class="num">0.902</td>
+        <td>RAJESH YADAV</td><td>RAJESH Y</td><td>MEHAGAON</td></tr>
+    
+    <tr><td>L001016</td><td>G0500016</td>
+        <td class="num">0.901</td>
+        <td>NARAYAN G</td><td>Naraian  Gour</td><td>MEHGAON</td></tr>
+    
+    <tr><td>L001157</td><td>G0500157</td>
+        <td class="num">0.894</td>
+        <td>KAILASH PATEL</td><td>KAILASH  P</td><td>BANDOL</td></tr>
+    
+    <tr><td>L001325</td><td>G0500325</td>
+        <td class="num">0.892</td>
+        <td>OMPRAKASH K</td><td>OMPRAKAS KUSWAHA</td><td>PIPARIA</td></tr>
+    
+    <tr><td>L001213</td><td>G0500213</td>
+        <td class="num">0.890</td>
+        <td>BHAGWAN SEN</td><td>SEN BHAGWAN</td><td>DEVNAGAR</td></tr>
+    
+    <tr><td>L001075</td><td>G0500075</td>
+        <td class="num">0.890</td>
+        <td>BHARGAVA  PRAKASH</td><td>PRAKASH BHARGAVA</td><td>SIGODHI</td></tr>
+    
+    <tr><td>L001084</td><td>G0500084</td>
+        <td class="num">0.890</td>
+        <td>DINESH KIRAR</td><td>DINESH KIRAR</td><td>SIGODHI</td></tr>
+    
+    <tr><td>L001142</td><td>G0500142</td>
+        <td class="num">0.890</td>
+        <td>LODHI KANHAIYA</td><td>KANHAIYA LODHI</td><td>BANDOL</td></tr>
+    
+    <tr><td>L001044</td><td>G0500044</td>
+        <td class="num">0.890</td>
+        <td>NARAYAN PATHAK</td><td>NARAYAN PATHAK</td><td>MEHGAON</td></tr>
+    
+    <tr><td>L001013</td><td>G0500013</td>
+        <td class="num">0.884</td>
+        <td>Kailash Jat</td><td>KAILASH JAT</td><td>MURLI PAUDI</td></tr>
+    
+    <tr><td>L001447</td><td>G0500447</td>
+        <td class="num">0.868</td>
+        <td>MADANLAL MISHRA</td><td>MADANLAL MISHRA</td><td>GADARIA</td></tr>
+    
+    <tr><td>L001343</td><td>G0500343</td>
+        <td class="num">0.866</td>
+        <td>MISHRA PRAKASH</td><td>PRAKASH MISHRA</td><td>MEHAGAON</td></tr>
+    
+    <tr><td>L001227</td><td>G0500227</td>
+        <td class="num">0.866</td>
+        <td>GOVIND DUBEY</td><td>GOVIND DUBEY</td><td>BANDOLE</td></tr>
+    
+    <tr><td>L001278</td><td>G0500278</td>
+        <td class="num">0.864</td>
+        <td>Narayan P</td><td>NARAIAN  PATHAK</td><td>BELKHEDA</td></tr>
+    
+    <tr><td>L001416</td><td>G0500416</td>
+        <td class="num">0.863</td>
+        <td>NARAIAN BHARGAWA</td><td>NARAYAN B</td><td>SIGODHI</td></tr>
+    
+    <tr><td>L001315</td><td>G0500315</td>
+        <td class="num">0.862</td>
+        <td>LAKHAN P</td><td>LAKAN PARIHAR</td><td>DEVNAGAR (GOTEGAON)</td></tr>
+    
+    <tr><td>L001303</td><td>G0500303</td>
+        <td class="num">0.860</td>
+        <td>SITARAM DUBEY</td><td>Dubey Sitaram</td><td>CHEENKI</td></tr>
+    
+    <tr><td>L001379</td><td>G0500379</td>
+        <td class="num">0.860</td>
+        <td>BABULAL MISHRA</td><td>Babulal Mishra</td><td>GADARIYAKHEDA</td></tr>
     
   </table></div>
-  <p class="note">Showing 25 of 713 — full list in review_queue.csv.</p>
+  <p class="note">Showing 25 of 102 — full list in review_queue.csv.</p>
 
-  <h2>Field conflicts <span class="pill">533 rows</span></h2>
+  <h2>Field conflicts <span class="pill">68 rows</span></h2>
   <div class="scroll"><table>
     <tr><th>Legacy</th><th>ERP</th><th>Field</th><th>Legacy value</th><th>ERP value</th></tr>
     
-    <tr><td>L001091</td><td>G0500091</td><td>land_acres</td>
-        <td>1.99</td><td>1.03</td></tr>
+    <tr><td>L001407</td><td>G0500407</td><td>land_acres</td>
+        <td>8.99</td><td>9.17</td></tr>
     
-    <tr><td>L002621</td><td>G0501621</td><td>phone</td>
-        <td>9140731919</td><td>9472331227</td></tr>
+    <tr><td>L001246</td><td>G0500246</td><td>land_acres</td>
+        <td>13.15</td><td>12.16</td></tr>
     
-    <tr><td>L004536</td><td>G0503536</td><td>bank_account</td>
-        <td>381089648808</td><td>058872215147</td></tr>
+    <tr><td>L001343</td><td>G0500343</td><td>bank_account</td>
+        <td>767165176446</td><td>587683465389</td></tr>
     
-    <tr><td>L003678</td><td>G0502678</td><td>land_acres</td>
-        <td>3.39</td><td>2.46</td></tr>
+    <tr><td>L001067</td><td>G0500067</td><td>phone</td>
+        <td>9297085238</td><td>9487861465</td></tr>
     
-    <tr><td>L003798</td><td>G0502798</td><td>phone</td>
-        <td>9505678449</td><td>9290175308</td></tr>
+    <tr><td>L001247</td><td>G0500247</td><td>land_acres</td>
+        <td>7.49</td><td>6.02</td></tr>
     
-    <tr><td>L004971</td><td>G0503971</td><td>land_acres</td>
-        <td>10.06</td><td>7.87</td></tr>
+    <tr><td>L001300</td><td>G0500300</td><td>phone</td>
+        <td>9333639537</td><td>9561749174</td></tr>
     
-    <tr><td>L003071</td><td>G0502071</td><td>phone</td>
-        <td>9236851516</td><td>9090897171</td></tr>
+    <tr><td>L001093</td><td>G0500093</td><td>land_acres</td>
+        <td>10.75</td><td>8.52</td></tr>
     
-    <tr><td>L001690</td><td>G0500690</td><td>phone</td>
-        <td>9396524276</td><td>9542527505</td></tr>
+    <tr><td>L001383</td><td>G0500383</td><td>phone</td>
+        <td>9032220608</td><td>9983301493</td></tr>
     
-    <tr><td>L002291</td><td>G0501291</td><td>land_acres</td>
-        <td>11.66</td><td>9.33</td></tr>
+    <tr><td>L001203</td><td>G0500203</td><td>land_acres</td>
+        <td>6.67</td><td>8.12</td></tr>
     
-    <tr><td>L001398</td><td>G0500398</td><td>phone</td>
-        <td>9590620036</td><td>9955049326</td></tr>
+    <tr><td>L001447</td><td>G0500447</td><td>bank_account</td>
+        <td>421598841345</td><td>550279694435</td></tr>
     
-    <tr><td>L004059</td><td>G0503059</td><td>land_acres</td>
-        <td>15.9</td><td>15.6</td></tr>
+    <tr><td>L001127</td><td>G0500127</td><td>bank_account</td>
+        <td>774601795280</td><td>368454801848</td></tr>
     
-    <tr><td>L001530</td><td>G0500530</td><td>bank_account</td>
-        <td>555468939770</td><td>484673322912</td></tr>
+    <tr><td>L001419</td><td>G0500419</td><td>land_acres</td>
+        <td>5.56</td><td>7.23</td></tr>
     
-    <tr><td>L004125</td><td>G0503125</td><td>land_acres</td>
-        <td>4.94</td><td>3.07</td></tr>
+    <tr><td>L001439</td><td>G0500439</td><td>land_acres</td>
+        <td>8.33</td><td>6.18</td></tr>
     
-    <tr><td>L003273</td><td>G0502273</td><td>phone</td>
-        <td>9574356241</td><td>9410063524</td></tr>
+    <tr><td>L001498</td><td>G0500498</td><td>land_acres</td>
+        <td>7.96</td><td>8.47</td></tr>
     
-    <tr><td>L003895</td><td>G0502895</td><td>bank_account</td>
-        <td>208588556379</td><td>236988926920</td></tr>
+    <tr><td>L001298</td><td>G0500298</td><td>land_acres</td>
+        <td>16.79</td><td>17.6</td></tr>
     
-    <tr><td>L004027</td><td>G0503027</td><td>land_acres</td>
-        <td>16.95</td><td>18.63</td></tr>
+    <tr><td>L001200</td><td>G0500200</td><td>land_acres</td>
+        <td>11.62</td><td>11.77</td></tr>
     
-    <tr><td>L002385</td><td>G0501385</td><td>bank_account</td>
-        <td>366253967183</td><td>185079722810</td></tr>
+    <tr><td>L001186</td><td>G0500186</td><td>land_acres</td>
+        <td>9.9</td><td>10.59</td></tr>
     
-    <tr><td>L002909</td><td>G0501909</td><td>bank_account</td>
-        <td>517307178535</td><td>905589596355</td></tr>
+    <tr><td>L001145</td><td>G0500145</td><td>land_acres</td>
+        <td>15.83</td><td>14.41</td></tr>
     
-    <tr><td>L003365</td><td>G0502365</td><td>phone</td>
-        <td>9810192492</td><td>9083077431</td></tr>
+    <tr><td>L001238</td><td>G0500238</td><td>land_acres</td>
+        <td>8.48</td><td>8.04</td></tr>
     
-    <tr><td>L003964</td><td>G0502964</td><td>bank_account</td>
-        <td>513713937259</td><td>593420796813</td></tr>
+    <tr><td>L001066</td><td>G0500066</td><td>bank_account</td>
+        <td>624618957445</td><td>572042399806</td></tr>
     
-    <tr><td>L003915</td><td>G0502915</td><td>phone</td>
-        <td>9258122589</td><td>9238942593</td></tr>
+    <tr><td>L001152</td><td>G0500152</td><td>phone</td>
+        <td>9218032508</td><td>9532091624</td></tr>
     
-    <tr><td>L001452</td><td>G0500452</td><td>bank_account</td>
-        <td>129755726169</td><td>167532163361</td></tr>
+    <tr><td>L001227</td><td>G0500227</td><td>bank_account</td>
+        <td>288595568822</td><td>844871086837</td></tr>
     
-    <tr><td>L001452</td><td>G0500452</td><td>land_acres</td>
-        <td>5.84</td><td>7.16</td></tr>
+    <tr><td>L001181</td><td>G0500181</td><td>phone</td>
+        <td>9355427078</td><td>9525658699</td></tr>
     
-    <tr><td>L002280</td><td>G0501280</td><td>land_acres</td>
-        <td>13.71</td><td>16.17</td></tr>
+    <tr><td>L001495</td><td>G0500495</td><td>land_acres</td>
+        <td>17.26</td><td>16.88</td></tr>
     
-    <tr><td>L003054</td><td>G0502054</td><td>land_acres</td>
-        <td>9.2</td><td>10.31</td></tr>
+    <tr><td>L001352</td><td>G0500352</td><td>bank_account</td>
+        <td>865371073117</td><td>944201377238</td></tr>
     
   </table></div>
-  <p class="note">Showing 25 of 533 — full list in conflicts.csv.</p>
+  <p class="note">Showing 25 of 68 — full list in conflicts.csv.</p>
 
-  <h2>Unmatched legacy growers <span class="pill">180 rows</span></h2>
+  <h2>Unmatched legacy growers <span class="pill">24 rows</span></h2>
   <p class="note">The highest-priority exception list. A grower present in the legacy
      system and absent from the ERP cannot be issued a parchi or paid.</p>
   <div class="scroll"><table>
     <tr><th>Code</th><th>Name</th><th>Village</th><th>Phone</th><th>Land (ac)</th></tr>
     
-    <tr><td>L001556</td><td>GANESH K</td>
-        <td>PIPARIYA</td><td>901-656-2774</td>
-        <td class="num">3.64</td></tr>
+    <tr><td>L001349</td><td>RAMESH BHARGAVA</td>
+        <td>KESLI</td><td>9574847376</td>
+        <td class="num">11.21</td></tr>
     
-    <tr><td>L003104</td><td>SHIVKUMAR PARIHAR</td>
-        <td>BACHHAI</td><td>99692 84997</td>
-        <td class="num">14.21</td></tr>
+    <tr><td>L001310</td><td>PREMLAL THAKUR</td>
+        <td>GADARIA</td><td>999-893-9083</td>
+        <td class="num">9.78</td></tr>
     
-    <tr><td>L004330</td><td>BRIJMOHAN VISHWAKARMA</td>
+    <tr><td>L001035</td><td>SAMPATLAL RAJPUT</td>
+        <td>GADARIYA</td><td>9842560634</td>
+        <td class="num">13.29</td></tr>
+    
+    <tr><td>L001032</td><td>OMPRAKAS SAHU</td>
+        <td>BHALPANI</td><td>95818 87633</td>
+        <td class="num">2.03</td></tr>
+    
+    <tr><td>L001156</td><td>Madanlal Parihar</td>
         <td>BHALPANI</td><td></td>
-        <td class="num">4.86</td></tr>
+        <td class="num">11.62</td></tr>
     
-    <tr><td>L002299</td><td>SANTOS KOURAW</td>
-        <td>JALAPUR</td><td>9629788235</td>
-        <td class="num">9.70</td></tr>
+    <tr><td>L001222</td><td>RAGHUWEER KIRAR</td>
+        <td>BANDOLE</td><td>+919652079764</td>
+        <td class="num">2.46</td></tr>
     
-    <tr><td>L001684</td><td>NARAYAN PATEL</td>
-        <td>KUKWADA</td><td>9415671177</td>
-        <td class="num">8.56</td></tr>
+    <tr><td>L001364</td><td>RADHESHYAM SAHU</td>
+        <td>BACHHAI</td><td>9969317805</td>
+        <td class="num">8.39</td></tr>
     
-    <tr><td>L003057</td><td>Mahendra Dubei</td>
-        <td>BANDOLE</td><td>90703 00548</td>
-        <td class="num">5.61</td></tr>
+    <tr><td>L001420</td><td>CHHOTELAL KIRAR</td>
+        <td>CHORAKHEDA</td><td>9785935252</td>
+        <td class="num">12.53</td></tr>
     
-    <tr><td>L003591</td><td>RAMESH JAT</td>
-        <td>BHALPANEE</td><td>9843735460</td>
-        <td class="num">1.71</td></tr>
+    <tr><td>L001242</td><td>SOHAN D</td>
+        <td>BANDOLE</td><td>985-602-5586</td>
+        <td class="num">13.09</td></tr>
     
-    <tr><td>L001390</td><td>Babulal Tiwari</td>
-        <td>BACHAI</td><td>9157449653</td>
-        <td class="num">16.11</td></tr>
+    <tr><td>L001279</td><td>MOHAN SAHU</td>
+        <td>DUDWARA</td><td>952-016-5121</td>
+        <td class="num">15.93</td></tr>
     
-    <tr><td>L002129</td><td>BABULAL  GOUR</td>
+    <tr><td>L001365</td><td>JAGDISH  VISHWAKARMA</td>
+        <td>CHEENKI</td><td>9470534367</td>
+        <td class="num">12.86</td></tr>
+    
+    <tr><td>L001391</td><td>KANHAIYA RAJPUT</td>
+        <td>CHORAKHEDA</td><td>9568679765</td>
+        <td class="num">4.50</td></tr>
+    
+    <tr><td>L001428</td><td>LAKHAN TIWARI</td>
+        <td>BACHAI KALAN</td><td>+919791166964</td>
+        <td class="num">7.38</td></tr>
+    
+    <tr><td>L001258</td><td>AMARSINGH IADAV</td>
+        <td>CHORAKHEDA</td><td>9658870871</td>
+        <td class="num">4.19</td></tr>
+    
+    <tr><td>L001490</td><td>MOHAN KOURAV</td>
+        <td>CHINKI</td><td>+919709275944</td>
+        <td class="num">5.80</td></tr>
+    
+    <tr><td>L001234</td><td>GIRDHARI  PATEL</td>
+        <td>KARHAIA</td><td>93178 20311</td>
+        <td class="num">5.97</td></tr>
+    
+    <tr><td>L001077</td><td>GIRDHARI SEN</td>
         <td>KARHAIYA KHEDA</td><td></td>
-        <td class="num">2.26</td></tr>
+        <td class="num">5.83</td></tr>
     
-    <tr><td>L001852</td><td>RAGHUWEER JAT</td>
-        <td>BACHAI</td><td>92417 01831</td>
-        <td class="num">3.48</td></tr>
+    <tr><td>L001320</td><td>LAKHAN SEN</td>
+        <td>BARKHEDA (SINGHPUR)</td><td>9513994595</td>
+        <td class="num">9.48</td></tr>
     
-    <tr><td>L002885</td><td>GIRDHARI THAKUR</td>
-        <td>DUDHWARA</td><td>9339590754</td>
-        <td class="num">0.68</td></tr>
+    <tr><td>L001311</td><td>Dines Gour</td>
+        <td>BARKHEDA (SINGHPUR)</td><td>9006032723</td>
+        <td class="num">3.96</td></tr>
     
-    <tr><td>L001168</td><td>LAKHAN J</td>
-        <td>MEHAGAON</td><td>9201654235</td>
-        <td class="num">3.97</td></tr>
+    <tr><td>L001244</td><td>SANTOSH AHIRWAR</td>
+        <td>CHEENKI</td><td>09300045315</td>
+        <td class="num">4.93</td></tr>
     
-    <tr><td>L002639</td><td>RAGHUVEER  THAKUR</td>
-        <td>JALAPUR</td><td>9288296071</td>
-        <td class="num">11.08</td></tr>
+    <tr><td>L001120</td><td>MUKESH  DUBEY</td>
+        <td>BACHAI KALAN</td><td>+919310620177</td>
+        <td class="num">10.22</td></tr>
     
-    <tr><td>L001352</td><td>PARSRAM DUBEY</td>
-        <td>KHAMARIYA</td><td></td>
-        <td class="num">13.70</td></tr>
-    
-    <tr><td>L002643</td><td>KANHAIYA  SAHU</td>
-        <td>BHALPANEE</td><td>9974865312</td>
-        <td class="num">5.79</td></tr>
-    
-    <tr><td>L002347</td><td>MOHAN AHIRWAR</td>
-        <td>KARHAIYA KHEDA</td><td>9421425482</td>
-        <td class="num">3.47</td></tr>
-    
-    <tr><td>L001983</td><td>SAMPATLAL JAT</td>
-        <td>BACHAI KALAN</td><td></td>
-        <td class="num">2.54</td></tr>
-    
-    <tr><td>L003636</td><td>NARAYAN KIRAR</td>
+    <tr><td>L001248</td><td>Prakash Thakur</td>
         <td>CHINKI</td><td></td>
-        <td class="num">5.45</td></tr>
+        <td class="num">7.04</td></tr>
     
-    <tr><td>L002814</td><td>RADHESHYAM LODHI</td>
-        <td>PIPARIYA</td><td>9916867967</td>
-        <td class="num">12.08</td></tr>
+    <tr><td>L001143</td><td>YADAV DINESH</td>
+        <td>KARHAIYA</td><td>9192565183</td>
+        <td class="num">1.99</td></tr>
     
-    <tr><td>L001163</td><td>OMPRAKASH KOURAV</td>
-        <td>JALLAPUR</td><td>91475 41022</td>
-        <td class="num">6.15</td></tr>
-    
-    <tr><td>L004176</td><td>Radheshyam Dubey</td>
-        <td>JALLAPUR</td><td>9308122545</td>
-        <td class="num">9.18</td></tr>
-    
-    <tr><td>L002817</td><td>RAJESH KUSHWAHA</td>
-        <td>CHEENKI</td><td>911-518-4063</td>
-        <td class="num">6.60</td></tr>
-    
-    <tr><td>L002170</td><td>GIRDHARI PARIHAR</td>
-        <td>KARHAIYA KHEDA</td><td></td>
-        <td class="num">8.78</td></tr>
-    
-    <tr><td>L004045</td><td>DEVILAL LODHI</td>
-        <td>BACHAI KALAN</td><td>+919456072811</td>
-        <td class="num">1.41</td></tr>
-    
-    <tr><td>L003897</td><td>DEVILAL SEN</td>
-        <td>DUDWARA</td><td>96961 95702</td>
-        <td class="num">8.81</td></tr>
+    <tr><td>L001446</td><td>Nandkishore Gour</td>
+        <td>CHINKI</td><td>09830538110</td>
+        <td class="num">11.87</td></tr>
     
   </table></div>
-  <p class="note">Showing 25 of 180 — full list in unmatched_legacy.csv.</p>
+  
 
   <footer>All records in this report are synthetic, generated by
      <code>data/generate.py</code>. No real grower data is used in this project.</footer>
